@@ -1,0 +1,27 @@
+input:focus, textarea:focus, select:focus {
+        outline: none;
+}
+.navi {
+  background: #69c19e;
+  padding: 25px;
+}
+.navbutton {
+  color: #FFFFFF;
+  background: #cd332b;
+  /*border: 0;
+  box-shadow: none;*/
+  margin-left: 110px;
+  padding: 10px;
+}
+.searchinput {
+  /*background: #F3BE7F;*/
+  border-radius: 25px;
+  box-shadow: none;
+  border: 0px;
+  padding: 10px;
+  margin-right: 20px;
+  /*color: #000000;*/
+}
+body {
+  background: #214754;
+}
