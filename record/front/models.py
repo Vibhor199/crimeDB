@@ -22,7 +22,6 @@ class Person(models.Model):
         managed = False
         db_table = 'person'
 
-
 class Pstatus(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
 
@@ -30,10 +29,121 @@ class Pstatus(models.Model):
         managed = False
         db_table = 'pstatus'
 
-
 class Ptype(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'ptype'
+
+class OffenceEvent(models.Model):
+    oid = models.AutoField(primary_key=True)
+    type = models.ForeignKey('Otypes', models.DO_NOTHING, db_column='type', blank=True, null=True)
+    victimpid = models.ForeignKey('Person', models.DO_NOTHING, db_column='victimpid', blank=True, null=True, related_name='victimpid')
+    motive = models.CharField(max_length=255, blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
+    time = models.TimeField(blank=True, null=True)
+    witnesspid = models.ForeignKey('Person', models.DO_NOTHING, db_column='witnesspid', blank=True, null=True, related_name='witnesspid')
+    l_street = models.CharField(max_length=255, blank=True, null=True)
+    l_city = models.CharField(max_length=100, blank=True, null=True)
+    l_state = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'offence_event'
+
+class Offender(models.Model):
+    opid = models.OneToOneField('Person', models.DO_NOTHING, db_column='opid', primary_key=True)
+    born = models.DateField(blank=True, null=True)
+    died = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'offender'
+
+class OffenderOffence(models.Model):
+    oid = models.ForeignKey(OffenceEvent, models.DO_NOTHING, db_column='oid', blank=True, null=True)
+    opid = models.ForeignKey(Offender, models.DO_NOTHING, db_column='opid', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'offender_offence'
+        unique_together = (('oid', 'opid'),)
+
+class Otypes(models.Model):
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'otypes'
+
+class Aka(models.Model):
+    opid = models.ForeignKey('Offender', models.DO_NOTHING, db_column='opid', blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'aka'
+        unique_together = (('opid', 'name'),)
+
+class Biometrics(models.Model):
+    opid = models.OneToOneField('Offender', models.DO_NOTHING, db_column='opid', primary_key=True)
+    bloodgroup = models.CharField(max_length=5, blank=True, null=True)
+    sex = models.CharField(max_length=1, blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    hair = models.CharField(max_length=20, blank=True, null=True)
+    weight = models.IntegerField(blank=True, null=True)
+    eye = models.CharField(max_length=20, blank=True, null=True)
+    skin = models.CharField(max_length=20, blank=True, null=True)
+    img = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'biometrics'
+
+class FamilyMember(models.Model):
+    fmpid = models.ForeignKey('Person', models.DO_NOTHING, db_column='fmpid', blank=True, null=True)
+    opid = models.ForeignKey('Offender', models.DO_NOTHING, db_column='opid', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'family_member'
+        unique_together = (('fmpid', 'opid'),)
+
+class Inmate(models.Model):
+    opid = models.ForeignKey('Offender', models.DO_NOTHING, db_column='opid', blank=True, null=True)
+    ioid = models.ForeignKey('OffenceEvent', models.DO_NOTHING, db_column='ioid', blank=True, null=True)
+    prid = models.ForeignKey('Prison', models.DO_NOTHING, db_column='prid', blank=True, null=True)
+    cellno = models.IntegerField(blank=True, null=True)
+    startdate = models.DateField(blank=True, null=True)
+    enddate = models.DateField(blank=True, null=True)
+    misdemenour = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'inmate'
+        unique_together = (('opid', 'prid', 'ioid', 'startdate'),)
+
+class Prison(models.Model):
+    prid = models.AutoField(primary_key=True)
+    staffcount = models.IntegerField(blank=True, null=True)
+    inchargeid = models.ForeignKey(Person, models.DO_NOTHING, db_column='inchargeid', blank=True, null=True)
+    a_street = models.CharField(max_length=255, blank=True, null=True)
+    a_city = models.CharField(max_length=100, blank=True, null=True)
+    a_state = models.CharField(max_length=100, blank=True, null=True)
+    capacity = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'prison'
+
+class Trial(models.Model):
+    tid = models.AutoField(primary_key=True)
+    startdate = models.DateField(blank=True, null=True)
+    enddate = models.DateField(blank=True, null=True)
+    verdict = models.CharField(max_length=255, default='NA', editable=True)
+    opid = models.ForeignKey(Offender, models.DO_NOTHING, db_column='opid', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'trial'
