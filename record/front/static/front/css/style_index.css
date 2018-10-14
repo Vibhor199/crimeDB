@@ -1,16 +1,91 @@
 input:focus, textarea:focus, select:focus {
         outline: none;
 }
+.cityselect {
+  background: #214754;
+}
+.cities {
+  position: absolute;
+  left: 21vw;
+  top: 5vh;
+  font-size: 200%;
+  width: 30vw;
+  color: #fff;
+}
+.cities > ul {
+  width: 100%;
+}
+.cities > ul > li {
+  width: 100%;
+  display: inline-inline-block;
+}
+.yax > g > text {
+    fill: #ffa400;
+}
+.yax > path {
+    stroke: #ffa400;
+}
+.yax > g > line {
+    stroke: #ffa400;
+}
+.xax > g > text {
+    fill: #ffa400;
+}
+.xax > path {
+    stroke: #ffa400;
+}
+.xax > g > line {
+    stroke: #ffa400;
+}
+.scro {
+  width: 200px;
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  position: absolute;
+  top: 18vh;
+  background: #214754;
+}
+.scro > ul > li{
+  background: #faf3dd;
+  margin: 20px;
+  border-radius: 5px;
+  border-color: #000;
+  box-shadow: 0px 0px 1px #000;
+}
+.scro > ul {
+  padding: 0px !important;
+  margin: 0px;
+  border-radius: 0px !important;
+  border: 0px !important;
+}
+.line-chart {
+  position: absolute;
+  right: 1.5vw;
+  height: 450px;
+  top: 23vh;
+  padding: 20px;
+  box-shadow: 0px 0px 5px #fbfaf1;
+  -moz-box-shadow: 0px 0px 5px #fbfaf1;
+  -webkit-box-shadow: 0px 0px 5px #fbfaf1;
+  shadow
+
+}
+.line-chart > g {
+  align-self: center;
+
+}
 .navi {
   background: #69c19e;
   padding: 25px;
+  margin: 5px !important;
 }
 .navbutton {
   color: #FFFFFF;
   background: #cd332b;
   /*border: 0;
   box-shadow: none;*/
-  margin-left: 110px;
+  margin-left: 150px;
   padding: 10px;
 }
 .searchinput {
@@ -20,8 +95,9 @@ input:focus, textarea:focus, select:focus {
   border: 0px;
   padding: 10px;
   margin-right: 20px;
+  width: 13%;
   /*color: #000000;*/
 }
 body {
-  background: #214754;
+  background: #214754 !important;
 }
