@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+import front.views as fview
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('portal/',include('front.urls')),
-
+    path('portal/',fview.front),
+    path('entry/',fview.entry),
+    path('entry/ptyp/crt',fview.inptype),
+    path('entry/otyp/crt',fview.inotype)
 ]

@@ -1,0 +1,97 @@
+.oeinput > input,select {
+	width: 9.5vw;
+}
+.personinput > input,select {
+	width: 11vw;
+}
+
+div.visible {
+	display: block;
+
+}
+
+div.hidden {
+	display: none;
+}
+input {
+	display: inline;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid white;
+	padding: 10px;
+	color: white !important;
+	text-align: center !important;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: white;
+}
+button {
+	color: white !important;
+	font-style: italic !important;
+	font-weight: bold !important;
+	background: #C8332B;
+	border: 0px;
+	border-radius: 0;
+	display: inline-block;
+	width: 90px;;
+	height: 50px;;
+	margin-top: 1vh !important;
+	margin-right: 0.5vw !important;
+}
+table {
+	   margin-left: 2.5vw !important;
+		 margin-right: 2.5vw !important;
+		 width: 95vw !important;
+}
+table > thead {
+	background-color: #69c19e;
+}
+table > tbody > tr {
+	background-color: #ffffff;
+}
+.data-css {
+	margin-top: 10vh;
+}
+hr {
+		border-style: solid !important;
+    border-width: 2px !important;
+		color: white !important;
+		margin: 0px !important;
+}
+.tabs {
+	align-content: center;
+	width: 100vw;
+	overflow-x:auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+.tab-link {
+	display: inline-block;
+	background: white;
+	margin-top: 10px;
+	margin-bottom: 30px;
+	margin-right: 10px;
+	margin-left: 10px;
+	padding: 10px;
+	border: 0px;
+	width: 130px;
+	height: 40px;
+	text-align: center;
+	color: #214754;
+	/*font-family: "Times New Roman", Times, monospace;*/
+	font-style: italic;
+	font-weight: bold;
+}
+body {
+  background: #214754 !important;
+}

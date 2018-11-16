@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static 'front/scripts/d3.v4.min.js' %}"></script>
+    <link href="{% static 'entry/css/style_entry.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'front/scripts/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'entry/scripts/entry.js' %}"></script>
+    <link href="{% static 'front/css/bootstrap.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'front/scripts/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    <div style="overflow: hidden; height: 60px;">
+      <ul class="tabs" id="tabs" >
+        <li class="tab-link" id="1">PersonTypes</li>
+        <li class="tab-link" id="2">Person</li>
+        <li class="tab-link" id="3">Offender</li>
+        <li class="tab-link" id="4">OffenceTypes</li>
+        <li class="tab-link" id="5">OffenceEvents</li>
+        <li class="tab-link" id="6">OffenderOffence</li>
+        <!--<li class="tab-link" id="7">Inmate</li>
+        <li class="tab-link" id="8">Prison</li>
+        <li class="tab-link" id="9">Biometrics</li>
+        <li class="tab-link" id="10">FamilyMembers</li>
+        <li class="tab-link" id="11">Trials</li>-->
+      </ul>
+    </div>
+    <hr>
+    <div class="visible" id="tab1">
+        {% csrf_token %}
+        <button id="addptype" style="margin-left: 36vw !important;">ADD</button>
+        <input id="ptyp"
+             type="text"
+             name="type"
+             placeholder="Enter type"
+             onfocus="this.placeholder='';
+                      this.style.color='#ffffff';"
+             onblur="this.placeholder='Enter type';"/>
+      <table class="table table-bordered data-css">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="tbody1">
+          {% for type in ptypes %}
+            <tr>
+              <td>{{type.id}}</td>
+              <td>{{type.description}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="hidden" id="tab2">
+     <div class="personinput">
+      <button id="addperson" style="margin-left: 1vw !important;">ADD</button>
+      <select id="2ptyp">
+          <option>--ADD NEW?--</option>
+        {% for type in ptypes %}
+          <option>{{type.description}}</option>
+        {% endfor %}
+      </select>
+      <input id="fn"
+           type="text"
+           placeholder="--first name--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+      <input id="mn"
+           type="text"
+           placeholder="--middle name--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+      <input id="ln"
+           type="text"
+           placeholder="--last name--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+      <input id="rstr"
+           type="text"
+           placeholder="--street--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+      <input id="rc"
+           type="text"
+           placeholder="--city--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+      <input id="rsta"
+           type="text"
+           placeholder="--state--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+      <select id="2pstat">
+        <option>--ADD NEW?--</option>
+        {% for s in pstatus %}
+          <option>{{s.description}}</option>
+        {% endfor %}
+      </select>
+     </div>
+     <table class="table table-bordered data-css">
+       <thead>
+         <tr>
+           <th>Sn</th>
+           <th>Type</th>
+           <th>FirstName</th>
+           <th>MiddleName</th>
+           <th>LastName</th>
+           <th>ResidenceStreet</th>
+           <th>ResidenceCity</th>
+           <th>ResidenceState</th>
+           <th>Status</th>
+         </tr>
+       </thead>
+       <tbody id="tbody2">
+         {% for p in persons %}
+           <tr>
+             <td>{{p.pid}}</td>
+             <td>{{p.type}}</td>
+             <td>{{p.fame}}</td>
+             <td>{{p.mname}}</td>
+             <td>{{p.lname}}</td>
+             <td>{{p.r_street}}</td>
+             <td>{{p.r_city}}</td>
+             <td>{{p.r_state}}</td>
+             <td>{{p.status}}</td>
+           </tr>
+         {% endfor %}
+       </tbody>
+     </table>
+    </div>
+    <div class="hidden" id="tab3">
+      <div class="offenderinput">
+        <button id="addperson" style="margin-left: 23vw !important;">ADD</button>
+        <input id="oid" type="number" min="1" max="{{ persons.last.pid }}" placeholder="--criminal pid--" style="width:12vw;"/>
+        <label for="bdate" style="color:white">BirthDate</label>
+        <input id="bdate" type="date" style="width:12vw;"/>
+        <label for="ddate" style="color:white">DeathDate</label>
+        <input id="ddate" type="date" style="width:12vw;"/>
+      </div>
+      <table class="table table-bordered data-css">
+        <thead>
+          <tr>
+            <th>Pid</th>
+            <th>FirstName</th>
+            <th>MiddleName</th>
+            <th>LastName</th>
+            <th>ResidenceStreet</th>
+            <th>ResidenceCity</th>
+            <th>ResidenceState</th>
+            <th>Status</th>
+            <th>BirthDate</th>
+            <th>DiedDate</th>
+          </tr>
+        </thead>
+        <tbody id="tbody3">
+          {% for p in persons %}
+            <tr>
+              <td>{{p.pid}}</td>
+              <td>{{p.fame}}</td>
+              <td>{{p.mname}}</td>
+              <td>{{p.lname}}</td>
+              <td>{{p.r_street}}</td>
+              <td>{{p.r_city}}</td>
+              <td>{{p.r_state}}</td>
+              <td>{{p.status}}</td>
+              <td>{{p.offender.born}}</td>
+              <td>{{p.offender.died}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="hidden" id="tab4">
+      <button id="addotype" style="margin-left: 36vw !important;">ADD</button>
+      <input id="otyp"
+           type="text"
+           name="type"
+           placeholder="Enter type"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='Enter type';"/>
+           <table class="table table-bordered data-css">
+             <thead>
+               <tr>
+                 <th>id</th>
+                 <th>Description</th>
+               </tr>
+             </thead>
+             <tbody id="tbody4">
+               {% for type in otypes %}
+               <tr>
+                 <td>{{type.id}}</td>
+                 <td>{{type.description}}</td>
+               </tr>
+               {% endfor %}
+             </tbody>
+           </table>
+    </div>
+    <div class="hidden" id="tab5">
+     <div class="oeinput">
+      <button id="addoffenceevents" style="margin-left: 1vw !important;">ADD</button>
+      <select>
+        {% for o in otypes %}
+        <option>{{o}}</option>
+        {% endfor %}
+      </select>
+      <input id=""
+             type="number"
+             placeholder="--victimpid--"
+             onfocus="this.placeholder='';
+                      this.style.color='#ffffff';"
+             onblur="this.placeholder='--victimpid--';"/>
+      <input id=""
+           type="text"
+           placeholder="--motive--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='--motive--';"/>
+      <input id=""
+            type="date"/>
+      <input id=""
+            type="time"/>
+      <input id=""
+             type="number"
+             placeholder="--witnesspid--"
+             onfocus="this.placeholder='';
+                      this.style.color='#ffffff';"
+             onblur="this.placeholder='--witnesspid--';"/>
+      <input id=""
+           type="text"
+           placeholder="--street--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='--street--';"/>
+      <input id=""
+           type="text"
+           placeholder="--city--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='--city--';"/>
+      <input id=""
+           type="text"
+           placeholder="--state--"
+           onfocus="this.placeholder='';
+                    this.style.color='#ffffff';"
+           onblur="this.placeholder='--state--';"/>
+     </div>
+     <table class="table table-bordered data-css">
+       <thead>
+         <tr>
+           <th>Sn.</th>
+           <th>Type</th>
+           <th>Pid. Victim</th>
+           <th>Motive</th>
+           <th>Date</th>
+           <th>Time</th>
+           <th>WitnessPid</th>
+           <th>LocationStreet</th>
+           <th>City</th>
+           <th>State</th>
+         </tr>
+       </thead>
+       <tbody id="tbody5">
+         {% for o in oe %}
+         <tr>
+           <td>{{o.oid}}</td>
+           <td>{{o.type}}</td>
+           <td>{{o.victimpid}}</td>
+           <td>{{o.motive}}</td>
+           <td>{{o.date}}</td>
+           <td>{{o.time}}</td>
+           <td>{{o.witnesspid}}</td>
+           <td>{{o.l_street}}</td>
+           <td>{{o.l_city}}</td>
+           <td>{{o.l_state}}</td>
+         </tr>
+         {% endfor %}
+       </tbody>
+     </table>
+    </div>
+    <div class="hidden" id="tab6">
+      <div class="ooinput">
+        <button id="addoffenderoffence" style="margin-left: 40vw !important;">ADD</button>
+        <input id=""
+               type="number"
+               placeholder="--OffenceID--"
+               onfocus="this.placeholder='';
+                        this.style.color='#ffffff';"
+               onblur="this.placeholder='--OffenceID--';"/>
+
+        <input id=""
+               type="number"
+               placeholder="--OffenderPID--"
+               onfocus="this.placeholder='';
+                        this.style.color='#ffffff';"
+               onblur="this.placeholder='--OffenderPID--';"/>
+      </div>
+      <table class="table table-bordered data-css">
+        <thead>
+          <tr>
+            <th>Offence ID</th>
+            <th>ID. Offender Name</th>
+          </tr>
+        </thead>
+        <tbody id="tbody6">
+          {% for o in oo %}
+          <tr>
+            <td>{{o.oid}}</td>
+            <td>{{o.opid}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+
+  <!--LOGGER-->
+  <script>console.log('');</script>
+
+
+
+</html>

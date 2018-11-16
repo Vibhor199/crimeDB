@@ -22,6 +22,10 @@ class Person(models.Model):
         managed = False
         db_table = 'person'
 
+    def __str__(self):
+        return str(self.pid)+". "+self.fame+" "+self.lname
+
+
 class Pstatus(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
 
@@ -29,12 +33,19 @@ class Pstatus(models.Model):
         managed = False
         db_table = 'pstatus'
 
+    def __str__(self):
+        return self.description
+
+
 class Ptype(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'ptype'
+
+    def __str__(self):
+        return self.description
 
 class OffenceEvent(models.Model):
     oid = models.AutoField(primary_key=True)
@@ -52,14 +63,21 @@ class OffenceEvent(models.Model):
         managed = False
         db_table = 'offence_event'
 
+    def __str__(self):
+        return str(self.oid)
+
+
 class Offender(models.Model):
-    opid = models.OneToOneField('Person', models.DO_NOTHING, db_column='opid', primary_key=True)
+    opid = models.OneToOneField('Person', models.DO_NOTHING, db_column='opid', primary_key=True, related_name='offender')
     born = models.DateField(blank=True, null=True)
     died = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'offender'
+
+    def __str__(self):
+        return str(self.opid.pid)+". "+self.opid.fame+" "+self.opid.lname
 
 class OffenderOffence(models.Model):
     oid = models.ForeignKey(OffenceEvent, models.DO_NOTHING, db_column='oid', blank=True, null=True)
@@ -76,6 +94,9 @@ class Otypes(models.Model):
     class Meta:
         managed = False
         db_table = 'otypes'
+
+    def __str__(self):
+        return self.description
 
 class Aka(models.Model):
     opid = models.ForeignKey('Offender', models.DO_NOTHING, db_column='opid', blank=True, null=True)
