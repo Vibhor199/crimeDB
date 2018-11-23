@@ -10,7 +10,7 @@ from django.db import models
 class Person(models.Model):
     pid = models.AutoField(primary_key=True)
     type = models.ForeignKey('Ptype', models.DO_NOTHING, db_column='type', blank=True, null=True)
-    fame = models.CharField(max_length=70, blank=True, null=True)
+    fname = models.CharField(max_length=70, blank=True, null=True)
     mname = models.CharField(max_length=70, blank=True, null=True)
     lname = models.CharField(max_length=70, blank=True, null=True)
     r_street = models.CharField(max_length=255, blank=True, null=True)
@@ -23,7 +23,7 @@ class Person(models.Model):
         db_table = 'person'
 
     def __str__(self):
-        return str(self.pid)+". "+self.fame+" "+self.lname
+        return str(self.pid)+". "+self.fname+" "+self.lname
 
 
 class Pstatus(models.Model):
@@ -77,7 +77,7 @@ class Offender(models.Model):
         db_table = 'offender'
 
     def __str__(self):
-        return str(self.opid.pid)+". "+self.opid.fame+" "+self.opid.lname
+        return str(self.opid.pid)+". "+self.opid.fname+" "+self.opid.lname
 
 class OffenderOffence(models.Model):
     oid = models.ForeignKey(OffenceEvent, models.DO_NOTHING, db_column='oid', blank=True, null=True)
@@ -108,7 +108,7 @@ class Aka(models.Model):
         unique_together = (('opid', 'name'),)
 
 class Biometrics(models.Model):
-    opid = models.OneToOneField('Offender', models.DO_NOTHING, db_column='opid', primary_key=True)
+    pid = models.OneToOneField('Person', models.DO_NOTHING, db_column='pid', primary_key=True)
     bloodgroup = models.CharField(max_length=5, blank=True, null=True)
     sex = models.CharField(max_length=1, blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)

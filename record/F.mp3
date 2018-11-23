@@ -14,7 +14,7 @@ CREATE TABLE pstatus (
 CREATE TABLE person(
    pid int(11) not null auto_increment,
    type int,
-   fame varchar(70),
+   fname varchar(70),
    mname varchar(70),
    lname varchar(70),
    r_street varchar(255),
@@ -138,7 +138,7 @@ CREATE TABLE family_member (
 
 
 CREATE TABLE biometrics (
-  opid int(11) not null primary key,
+  pid int(11) not null primary key,
   bloodgroup varchar(5),
   sex char(1),
   height int(3),
@@ -148,8 +148,8 @@ CREATE TABLE biometrics (
   skin varchar(20),
   img varchar(255),
 
-  FOREIGN KEY fk_biometrics_offender(opid)
-  REFERENCES offender(opid)
+  FOREIGN KEY fk_biometrics_offender(pid)
+  REFERENCES person(pid)
 
 );
 

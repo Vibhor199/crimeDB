@@ -1,9 +1,28 @@
+$(document).ready(function () {
+  document.getElementById('cityselect').addEventListener('change',function() {
+    var text=$("#cityselect option:selected").text();
+    $.ajax({
+      type:'POST',
+      url:'cityreq',
+      data:{
+        city: text,
+        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+      },
+      success: function(resp){
+        console.log(resp)
+        $('#shown').append("<li>"+text+"</li><br>");
+      }
+    });
+  });
+});
+
 
 document.addEventListener("DOMContentLoaded", function(event) {
 fetch(api)
     .then(function(response) { return response.json(); })
     .then(function(data) {
         var parsedData = parseData(data);
+        console.log(parsedData)
         drawChart(parsedData);
     })
     .catch(function(err) { console.log(err); })
@@ -15,10 +34,10 @@ fetch(api)
  */
 function parseData(data) {
     var arr = [];
-    for (var i in data.bpi) {
+    for (var i in data) {
         arr.push({
-            date: new Date(i), //date
-            value: +data.bpi[i] //convert string to number
+            year: +i, //date
+            value: +data[i] //convert string to number
         });
     }
     return arr;
@@ -41,16 +60,16 @@ var svg = d3.select('svg')
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var x = d3.scaleTime()
+var x = d3.scaleLinear()
     .rangeRound([0, width]);
 
 var y = d3.scaleLinear()
     .rangeRound([height, 0]);
 
 var line = d3.line()
-    .x(function(d) { return x(d.date)})
+    .x(function(d) { return x(d.year)})
     .y(function(d) { return y(d.value)})
-    x.domain(d3.extent(data, function(d) { return d.date }));
+    x.domain(d3.extent(data, function(d) { return d.year }));
     y.domain(d3.extent(data, function(d) { return d.value }));
 
 g.append("g")

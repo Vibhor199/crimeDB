@@ -9,6 +9,7 @@
     <script src="{% static 'entry/scripts/entry.js' %}"></script>
     <link href="{% static 'front/css/bootstrap.min.css' %}" rel="stylesheet">
     <script type="text/javascript" src="{% static 'front/scripts/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'front/css/all.min.css' %}">
   </head>
   <body>
     <div style="overflow: hidden; height: 60px;">
@@ -48,7 +49,13 @@
           {% for type in ptypes %}
             <tr>
               <td>{{type.id}}</td>
-              <td>{{type.description}}</td>
+              <td>
+                {{type.description}}
+                <span style="float:right;">
+                  <i class="fa fa-times rmov" aria-hidden="true"></i>
+                  <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                </span>
+              </td>
             </tr>
           {% endfor %}
         </tbody>
@@ -125,14 +132,20 @@
            <tr>
              <td>{{p.pid}}</td>
              <td>{{p.type}}</td>
-             <td>{{p.fame}}</td>
+             <td>{{p.fname}}</td>
              <td>{{p.mname}}</td>
              <td>{{p.lname}}</td>
              <td>{{p.r_street}}</td>
              <td>{{p.r_city}}</td>
              <td>{{p.r_state}}</td>
-             <td>{{p.status}}</td>
-           </tr>
+             <td>
+               {{p.status}}
+               <span style="float:right;">
+                 <i class="fa fa-times rmov" aria-hidden="true"></i>
+                 <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+               </span>
+             </td>
+            </tr>
          {% endfor %}
        </tbody>
      </table>
@@ -162,21 +175,27 @@
           </tr>
         </thead>
         <tbody id="tbody3">
-          {% for p in persons %}
+          {% for p in offenders %}
             <tr>
-              <td>{{p.pid}}</td>
-              <td>{{p.fame}}</td>
-              <td>{{p.mname}}</td>
-              <td>{{p.lname}}</td>
-              <td>{{p.r_street}}</td>
-              <td>{{p.r_city}}</td>
-              <td>{{p.r_state}}</td>
-              <td>{{p.status}}</td>
-              <td>{{p.offender.born}}</td>
-              <td>{{p.offender.died}}</td>
+              <td>{{p.opid.pid}}</td>
+              <td>{{p.opid.fname}}</td>
+              <td>{{p.opid.mname}}</td>
+              <td>{{p.opid.lname}}</td>
+              <td>{{p.opid.r_street}}</td>
+              <td>{{p.opid.r_city}}</td>
+              <td>{{p.opid.r_state}}</td>
+              <td>{{p.opid.status}}</td>
+              <td>{{p.born}}</td>
+              <td>
+                {{p.died}}
+                <span style="float:right;">
+                  <i class="fa fa-times rmov" aria-hidden="true"></i>
+                  <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                </span>
+              </td>
             </tr>
           {% endfor %}
-        </tbody>
+        </>
       </table>
     </div>
     <div class="hidden" id="tab4">
@@ -199,7 +218,13 @@
                {% for type in otypes %}
                <tr>
                  <td>{{type.id}}</td>
-                 <td>{{type.description}}</td>
+                 <td>
+                   {{type.description}}
+                   <span style="float:right;">
+                     <i class="fa fa-times rmov" aria-hidden="true"></i>
+                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                   </span>
+                 </td>
                </tr>
                {% endfor %}
              </tbody>
@@ -281,7 +306,13 @@
            <td>{{o.witnesspid}}</td>
            <td>{{o.l_street}}</td>
            <td>{{o.l_city}}</td>
-           <td>{{o.l_state}}</td>
+           <td>
+             {{o.l_state}}
+             <span style="float:right;">
+               <i class="fa fa-times rmov" aria-hidden="true"></i>
+               <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+             </span>
+           </td>
          </tr>
          {% endfor %}
        </tbody>
@@ -315,7 +346,13 @@
           {% for o in oo %}
           <tr>
             <td>{{o.oid}}</td>
-            <td>{{o.opid}}</td>
+            <td>
+              {{o.opid}}
+              <span style="float:right;">
+                <i class="fa fa-times rmov" aria-hidden="true"></i>
+                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+              </span>
+            </td>
           </tr>
           {% endfor %}
         </tbody>

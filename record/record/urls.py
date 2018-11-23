@@ -19,6 +19,7 @@ import front.views as fview
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('portal/',fview.front),
+    path('portal/cityreq',fview.getcdat),
     path('entry/',fview.entry),
     path('entry/ptyp/crt',fview.inptype),
     path('entry/otyp/crt',fview.inotype)

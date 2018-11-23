@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
   $('#tabs li').click(function () {
@@ -60,4 +62,9 @@ $(document).ready(function () {
         }
       });
     });
+
+    $('.rmov').click(function () {
+      $(this).parent().parent().parent().remove();
+    });
+
 });
