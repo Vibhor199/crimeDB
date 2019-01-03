@@ -22,5 +22,6 @@ urlpatterns = [
     path('portal/cityreq',fview.getcdat),
     path('entry/',fview.entry),
     path('entry/ptyp/crt',fview.inptype),
-    path('entry/otyp/crt',fview.inotype)
+    path('entry/otyp/crt',fview.inotype),
+    path('entry/person/crt',fview.inperson)
 ]

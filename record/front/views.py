@@ -66,3 +66,6 @@ def inotype(request):
         )
         p.save()
         return HttpResponse('')
+def inperson(request):
+    if request.method == 'POST':
+        print(ok)

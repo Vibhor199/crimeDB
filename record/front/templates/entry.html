@@ -53,7 +53,6 @@
                 {{type.description}}
                 <span style="float:right;">
                   <i class="fa fa-times rmov" aria-hidden="true"></i>
-                  <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                 </span>
               </td>
             </tr>
@@ -65,7 +64,7 @@
      <div class="personinput">
       <button id="addperson" style="margin-left: 1vw !important;">ADD</button>
       <select id="2ptyp">
-          <option>--ADD NEW?--</option>
+          <option disabled>--Type--</option>
         {% for type in ptypes %}
           <option>{{type.description}}</option>
         {% endfor %}
@@ -107,7 +106,7 @@
                     this.style.color='#ffffff';"
            onblur="this.placeholder='Enter type';"/>
       <select id="2pstat">
-        <option>--ADD NEW?--</option>
+        <option disabled>--Status--</option>
         {% for s in pstatus %}
           <option>{{s.description}}</option>
         {% endfor %}
@@ -142,7 +141,6 @@
                {{p.status}}
                <span style="float:right;">
                  <i class="fa fa-times rmov" aria-hidden="true"></i>
-                 <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                </span>
              </td>
             </tr>
@@ -190,7 +188,7 @@
                 {{p.died}}
                 <span style="float:right;">
                   <i class="fa fa-times rmov" aria-hidden="true"></i>
-                  <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+
                 </span>
               </td>
             </tr>
@@ -222,7 +220,7 @@
                    {{type.description}}
                    <span style="float:right;">
                      <i class="fa fa-times rmov" aria-hidden="true"></i>
-                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+
                    </span>
                  </td>
                </tr>
@@ -310,7 +308,7 @@
              {{o.l_state}}
              <span style="float:right;">
                <i class="fa fa-times rmov" aria-hidden="true"></i>
-               <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+
              </span>
            </td>
          </tr>
@@ -350,7 +348,7 @@
               {{o.opid}}
               <span style="float:right;">
                 <i class="fa fa-times rmov" aria-hidden="true"></i>
-                <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                
               </span>
             </td>
           </tr>

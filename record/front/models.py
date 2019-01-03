@@ -24,7 +24,10 @@ class Person(models.Model):
 
     def __str__(self):
         return str(self.pid)+". "+self.fname+" "+self.lname
-
+    def save(self, *args, **kwargs):
+        if(self.r_street==None):
+            self.r_street="unknown"
+        super(Person, self).save(*args, **kwargs)
 
 class Pstatus(models.Model):
     description = models.CharField(max_length=255, blank=True, null=True)
